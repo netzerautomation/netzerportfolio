@@ -75,12 +75,41 @@
   --surface: oklch(0.19 0.02 258);
   --surface-2: oklch(0.235 0.022 258);
   --accent-glow: oklch(0.84 0.19 145 / 35%);
+  --grid-line: oklch(1 0 0 / 4%);
 
   --chart-1: oklch(0.84 0.19 145);
   --chart-2: oklch(0.7 0.15 200);
   --chart-3: oklch(0.78 0.16 90);
   --chart-4: oklch(0.62 0.22 305);
   --chart-5: oklch(0.64 0.2 16);
+}
+
+/* Light theme — same emerald identity, paper-light surfaces */
+html.light {
+  --background: oklch(0.975 0.006 255);
+  --foreground: oklch(0.24 0.02 258);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.02 258);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.02 258);
+  --primary: oklch(0.6 0.16 152);
+  --primary-foreground: oklch(0.985 0.005 95);
+  --secondary: oklch(0.935 0.01 255);
+  --secondary-foreground: oklch(0.28 0.02 258);
+  --muted: oklch(0.945 0.008 255);
+  --muted-foreground: oklch(0.47 0.02 258);
+  --accent: oklch(0.6 0.16 152);
+  --accent-foreground: oklch(0.985 0.005 95);
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: oklch(0.985 0.005 95);
+  --border: oklch(0.24 0.02 258 / 12%);
+  --input: oklch(0.24 0.02 258 / 18%);
+  --ring: oklch(0.6 0.16 152);
+
+  --surface: oklch(0.955 0.008 255);
+  --surface-2: oklch(0.93 0.01 255);
+  --accent-glow: oklch(0.6 0.16 152 / 22%);
+  --grid-line: oklch(0.24 0.02 258 / 6%);
 }
 
 @layer base {
@@ -98,6 +127,9 @@
     color: var(--color-foreground);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease;
   }
 }
 
@@ -138,12 +170,59 @@
   }
 
   .grid-bg {
-    background-image: linear-gradient(
-        oklch(1 0 0 / 0.04) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+    background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 56px 56px;
+  }
+
+  html.light .text-accent-grad {
+    background-image: linear-gradient(
+      120deg,
+      oklch(0.55 0.15 150),
+      oklch(0.5 0.12 210)
+    );
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Click ripple */
+  .ripple-host {
+    position: relative;
+    overflow: hidden;
+  }
+  .ripple-ink {
+    position: absolute;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.28;
+    transform: scale(0);
+    animation: ripple 0.6s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
   }
 
   .section-label {
