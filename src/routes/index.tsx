@@ -9,6 +9,14 @@ import wfChat from "@/assets/wf-111033.png.asset.json";
 import wfSocial from "@/assets/wf-111109.png.asset.json";
 import wfMining from "@/assets/wf-111337.png.asset.json";
 import wfReport from "@/assets/wf-111440.png.asset.json";
+import lead1 from "@/assets/lead-223217.png.asset.json";
+import lead2 from "@/assets/lead-223305.png.asset.json";
+import lead3 from "@/assets/lead-223316.png.asset.json";
+import lead4 from "@/assets/lead-223349.png.asset.json";
+import lead5 from "@/assets/lead-224941.png.asset.json";
+import lead6 from "@/assets/lead-224954.png.asset.json";
+import lead7 from "@/assets/lead-225158.png.asset.json";
+import lead8 from "@/assets/lead-225206.png.asset.json";
 
 const FEEDBACK_SHOTS = [
   { src: wfEmail.url, caption: "Email Feedback — Gmail watch to HTTP webhook" },
