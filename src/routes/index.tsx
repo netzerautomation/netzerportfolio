@@ -4,6 +4,22 @@ import { Moon, Sun, ArrowRight, Workflow } from "lucide-react";
 import heroFlow from "@/assets/hero-flow.jpg";
 import logoMark from "@/assets/logo-mark.png";
 import portraitAsset from "@/assets/netzer-portrait.png.asset.json";
+import wfEmail from "@/assets/wf-110955.png.asset.json";
+import wfChat from "@/assets/wf-111033.png.asset.json";
+import wfSocial from "@/assets/wf-111109.png.asset.json";
+import wfMining from "@/assets/wf-111337.png.asset.json";
+import wfReport from "@/assets/wf-111440.png.asset.json";
+
+const FEEDBACK_SHOTS = [
+  { src: wfEmail.url, caption: "Email Feedback — Gmail watch to HTTP webhook" },
+  { src: wfChat.url, caption: "Chat Feedback — Messenger capture & reply" },
+  { src: wfSocial.url, caption: "Social Feedback — Facebook Pages comments" },
+  {
+    src: wfMining.url,
+    caption: "Feedback mining — AI analysis, iterator, database",
+  },
+  { src: wfReport.url, caption: "Monthly report — aggregate, draft, email" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -557,6 +573,30 @@ function Workflows() {
                     </span>
                   ))}
                 </div>
+
+                {w.name === "Feedback Intelligence Pipeline" && (
+                  <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                    {FEEDBACK_SHOTS.map((shot) => (
+                      <a
+                        key={shot.src}
+                        href={shot.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group/shot block overflow-hidden rounded-lg border border-border bg-surface-2 transition-colors hover:border-primary/50 active:scale-[0.98]"
+                      >
+                        <img
+                          src={shot.src}
+                          alt={shot.caption}
+                          loading="lazy"
+                          className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
+                        />
+                        <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
+                          {shot.caption}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
 
                 <p className="mt-5 flex items-center gap-2 border-t border-border/60 pt-4 text-xs text-muted-foreground">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
