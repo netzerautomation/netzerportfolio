@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Moon, Sun, ArrowRight, Workflow } from "lucide-react";
 import heroFlow from "@/assets/hero-flow.jpg";
 import logoMark from "@/assets/logo-mark.png";
+import portraitAsset from "@/assets/netzer-portrait.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -307,8 +308,8 @@ function Nav() {
             loading="eager"
             className="opacity-90 transition-transform group-hover:rotate-6"
           />
-          <span className="font-display text-[0.95rem] font-semibold tracking-tight">
-            Netzer<span className="text-primary">.</span>Paul
+          <span className="font-display text-[1.05rem] font-semibold tracking-tight sm:text-base">
+            Netzer Paul Tonogbanua
           </span>
         </a>
         <div className="hidden items-center gap-7 md:flex">
@@ -401,19 +402,19 @@ function Hero() {
           <div className="relative">
             <div className="glow relative overflow-hidden rounded-3xl border border-border">
               <img
-                src={heroFlow}
-                alt="Abstract visualization of an AI automation workflow with interconnected nodes"
-                width={1024}
-                height={1024}
+                src={portraitAsset.url}
+                alt="Portrait of Netzer Paul Tonogbanua"
+                width={941}
+                height={1672}
                 loading="eager"
-                className="aspect-square w-full object-cover"
+                className="aspect-[3/4] w-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-2xl border border-border/70 bg-background/60 px-4 py-3 backdrop-blur-md">
                 <span className="font-mono text-xs text-muted-foreground">
-                  nodes → routes → actions
+                  Netzer Paul Tonogbanua
                 </span>
-                <span className="font-mono text-xs text-primary">live</span>
+                <span className="font-mono text-xs text-primary">automation lead</span>
               </div>
             </div>
           </div>
