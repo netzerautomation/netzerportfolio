@@ -593,9 +593,13 @@ function Workflows() {
                   ))}
                 </div>
 
-                {w.name === "Feedback Intelligence Pipeline" && (
+                {(w.name === "Feedback Intelligence Pipeline" ||
+                  w.name === "Lead Generation and Qualification Workflow") && (
                   <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {FEEDBACK_SHOTS.map((shot) => (
+                    {(w.name === "Feedback Intelligence Pipeline"
+                      ? FEEDBACK_SHOTS
+                      : LEAD_SHOTS
+                    ).map((shot) => (
                       <a
                         key={shot.src}
                         href={shot.src}
