@@ -574,6 +574,30 @@ function Workflows() {
                   ))}
                 </div>
 
+                {w.name === "Feedback Intelligence Pipeline" && (
+                  <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                    {FEEDBACK_SHOTS.map((shot) => (
+                      <a
+                        key={shot.src}
+                        href={shot.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group/shot block overflow-hidden rounded-lg border border-border bg-surface-2 transition-colors hover:border-primary/50 active:scale-[0.98]"
+                      >
+                        <img
+                          src={shot.src}
+                          alt={shot.caption}
+                          loading="lazy"
+                          className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
+                        />
+                        <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
+                          {shot.caption}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+
                 <p className="mt-5 flex items-center gap-2 border-t border-border/60 pt-4 text-xs text-muted-foreground">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                   <span className="font-mono">{w.metric}</span>
