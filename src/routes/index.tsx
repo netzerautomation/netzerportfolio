@@ -9,6 +9,14 @@ import wfChat from "@/assets/wf-111033.png.asset.json";
 import wfSocial from "@/assets/wf-111109.png.asset.json";
 import wfMining from "@/assets/wf-111337.png.asset.json";
 import wfReport from "@/assets/wf-111440.png.asset.json";
+import lead1 from "@/assets/lead-223217.png.asset.json";
+import lead2 from "@/assets/lead-223305.png.asset.json";
+import lead3 from "@/assets/lead-223316.png.asset.json";
+import lead4 from "@/assets/lead-223349.png.asset.json";
+import lead5 from "@/assets/lead-224941.png.asset.json";
+import lead6 from "@/assets/lead-224954.png.asset.json";
+import lead7 from "@/assets/lead-225158.png.asset.json";
+import lead8 from "@/assets/lead-225206.png.asset.json";
 
 const FEEDBACK_SHOTS = [
   { src: wfEmail.url, caption: "Email Feedback — Gmail watch to HTTP webhook" },
@@ -19,6 +27,17 @@ const FEEDBACK_SHOTS = [
     caption: "Feedback mining — AI analysis, iterator, database",
   },
   { src: wfReport.url, caption: "Monthly report — aggregate, draft, email" },
+];
+
+const LEAD_SHOTS = [
+  { src: lead1.url, caption: "Lead capture form → scoring steps (Zapier)" },
+  { src: lead2.url, caption: "Lead score recorded → split into Hot/Warm/Cold" },
+  { src: lead3.url, caption: "Personalized emails, follow-ups & Slack alert" },
+  { src: lead4.url, caption: "Full qualification zap overview" },
+  { src: lead5.url, caption: "Automated lead follow-up — schedule & loop" },
+  { src: lead6.url, caption: "Follow-up paths per lead temperature" },
+  { src: lead7.url, caption: "Meeting scheduling — Calendly to Sheets" },
+  { src: lead8.url, caption: "Lead assignment to sales reps" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -96,10 +115,10 @@ const WORKFLOWS = [
     metric: "100% of feedback auto-categorized",
   },
   {
-    name: "Lead Capture & CRM Sync",
-    desc: "Instant lead routing from web forms into the CRM with AI enrichment, de-duplication, and same-minute follow-up emails — no lead left waiting.",
-    flow: ["Webhook", "n8n", "AI Enrichment", "CRM + Gmail"],
-    tools: ["n8n", "Webhooks", "REST APIs", "Gmail"],
+    name: "Lead Generation and Qualification Workflow",
+    desc: "Captures leads from forms, scores them on timeline, budget, and company size, then splits into Hot/Warm/Cold paths with AI-personalized emails, scheduled follow-ups, meeting booking, and sales-rep assignment.",
+    flow: ["Google Forms", "Zapier Scoring", "Hot / Warm / Cold Paths", "Gmail + Calendar + Slack"],
+    tools: ["Zapier", "AI by Zapier", "Google Sheets", "Calendly", "Slack"],
     metric: "Response time cut from hours to minutes",
   },
   {
@@ -574,9 +593,13 @@ function Workflows() {
                   ))}
                 </div>
 
-                {w.name === "Feedback Intelligence Pipeline" && (
+                {(w.name === "Feedback Intelligence Pipeline" ||
+                  w.name === "Lead Generation and Qualification Workflow") && (
                   <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {FEEDBACK_SHOTS.map((shot) => (
+                    {(w.name === "Feedback Intelligence Pipeline"
+                      ? FEEDBACK_SHOTS
+                      : LEAD_SHOTS
+                    ).map((shot) => (
                       <a
                         key={shot.src}
                         href={shot.src}
