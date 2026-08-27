@@ -4,6 +4,22 @@ import { Moon, Sun, ArrowRight, Workflow } from "lucide-react";
 import heroFlow from "@/assets/hero-flow.jpg";
 import logoMark from "@/assets/logo-mark.png";
 import portraitAsset from "@/assets/netzer-portrait.png.asset.json";
+import wfEmail from "@/assets/wf-110955.png.asset.json";
+import wfChat from "@/assets/wf-111033.png.asset.json";
+import wfSocial from "@/assets/wf-111109.png.asset.json";
+import wfMining from "@/assets/wf-111337.png.asset.json";
+import wfReport from "@/assets/wf-111440.png.asset.json";
+
+const FEEDBACK_SHOTS = [
+  { src: wfEmail.url, caption: "Email Feedback — Gmail watch to HTTP webhook" },
+  { src: wfChat.url, caption: "Chat Feedback — Messenger capture & reply" },
+  { src: wfSocial.url, caption: "Social Feedback — Facebook Pages comments" },
+  {
+    src: wfMining.url,
+    caption: "Feedback mining — AI analysis, iterator, database",
+  },
+  { src: wfReport.url, caption: "Monthly report — aggregate, draft, email" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
