@@ -21,6 +21,17 @@ const FEEDBACK_SHOTS = [
   { src: wfReport.url, caption: "Monthly report — aggregate, draft, email" },
 ];
 
+const LEAD_SHOTS = [
+  { src: lead1.url, caption: "Lead capture form → scoring steps (Zapier)" },
+  { src: lead2.url, caption: "Lead score recorded → split into Hot/Warm/Cold" },
+  { src: lead3.url, caption: "Personalized emails, follow-ups & Slack alert" },
+  { src: lead4.url, caption: "Full qualification zap overview" },
+  { src: lead5.url, caption: "Automated lead follow-up — schedule & loop" },
+  { src: lead6.url, caption: "Follow-up paths per lead temperature" },
+  { src: lead7.url, caption: "Meeting scheduling — Calendly to Sheets" },
+  { src: lead8.url, caption: "Lead assignment to sales reps" },
+];
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
