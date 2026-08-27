@@ -115,10 +115,10 @@ const WORKFLOWS = [
     metric: "100% of feedback auto-categorized",
   },
   {
-    name: "Lead Capture & CRM Sync",
-    desc: "Instant lead routing from web forms into the CRM with AI enrichment, de-duplication, and same-minute follow-up emails — no lead left waiting.",
-    flow: ["Webhook", "n8n", "AI Enrichment", "CRM + Gmail"],
-    tools: ["n8n", "Webhooks", "REST APIs", "Gmail"],
+    name: "Lead Generation and Qualification Workflow",
+    desc: "Captures leads from forms, scores them on timeline, budget, and company size, then splits into Hot/Warm/Cold paths with AI-personalized emails, scheduled follow-ups, meeting booking, and sales-rep assignment.",
+    flow: ["Google Forms", "Zapier Scoring", "Hot / Warm / Cold Paths", "Gmail + Calendar + Slack"],
+    tools: ["Zapier", "AI by Zapier", "Google Sheets", "Calendly", "Slack"],
     metric: "Response time cut from hours to minutes",
   },
   {
