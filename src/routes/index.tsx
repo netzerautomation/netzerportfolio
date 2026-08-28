@@ -701,25 +701,27 @@ function Workflows() {
                     {(w.name === "Feedback Intelligence Pipeline"
                       ? FEEDBACK_SHOTS
                       : LEAD_SHOTS
-                    ).map((shot) => (
-                      <a
-                        key={shot.src}
-                        href={shot.src}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group/shot block overflow-hidden rounded-lg border border-border bg-surface-2 transition-colors hover:border-primary/50 active:scale-[0.98]"
-                      >
-                        <img
-                          src={shot.src}
-                          alt={shot.caption}
-                          loading="lazy"
-                          className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
-                        />
-                        <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
-                          {shot.caption}
-                        </span>
-                      </a>
-                    ))}
+                    ).map((shot) => {
+                      const open = useLightbox();
+                      return (
+                        <button
+                          key={shot.src}
+                          type="button"
+                          onClick={() => open({ src: shot.src, caption: shot.caption })}
+                          className="group/shot block w-full overflow-hidden rounded-lg border border-border bg-surface-2 text-left transition-colors hover:border-primary/50 active:scale-[0.98]"
+                        >
+                          <img
+                            src={shot.src}
+                            alt={shot.caption}
+                            loading="lazy"
+                            className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
+                          />
+                          <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
+                            {shot.caption}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
 
