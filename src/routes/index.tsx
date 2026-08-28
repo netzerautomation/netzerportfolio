@@ -25,6 +25,9 @@ import lead5 from "@/assets/lead-224941.png.asset.json";
 import lead6 from "@/assets/lead-224954.png.asset.json";
 import lead7 from "@/assets/lead-225158.png.asset.json";
 import lead8 from "@/assets/lead-225206.png.asset.json";
+import makeCert from "@/assets/netzer-make-certificate.pdf.asset.json";
+import zapierCert from "@/assets/netzer-zapier-certificate.pdf.asset.json";
+
 
 const FEEDBACK_SHOTS = [
   { src: wfEmail.url, caption: "Email Feedback — Gmail watch to HTTP webhook" },
