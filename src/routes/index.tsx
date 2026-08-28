@@ -291,7 +291,7 @@ const CERTIFICATES = [
     title: "No Code Automation with Make.com",
     issuer: "Tara AI Community+",
     date: "August 23, 2026",
-    url: makeCert.url,
+    img: certMakeImg.url,
     highlights:
       "Make.com Interface, Scenario Structure, Filters, Triggers, Connecting Apps, Actions, Data Manipulation, Advanced Routing, HTTP Requests & AI Agents",
   },
@@ -299,11 +299,12 @@ const CERTIFICATES = [
     title: "No Code Automation with Zapier",
     issuer: "Tara AI Community+",
     date: "August 17, 2026",
-    url: zapierCert.url,
+    img: certZapierImg.url,
     highlights:
       "Zapier Interface, Triggers, Formatter, Delay, Filter, Paths, Looping, Sub Zaps, Webhooks & AI with Human-in-the-Loop",
   },
 ];
+
 
 
 const LINKS = {
