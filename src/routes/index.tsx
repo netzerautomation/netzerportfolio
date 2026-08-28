@@ -640,6 +640,7 @@ function Services() {
 }
 
 function Workflows() {
+  const openLightbox = useLightbox();
   return (
     <section
       id="workflows"
