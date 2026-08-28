@@ -25,6 +25,9 @@ import lead5 from "@/assets/lead-224941.png.asset.json";
 import lead6 from "@/assets/lead-224954.png.asset.json";
 import lead7 from "@/assets/lead-225158.png.asset.json";
 import lead8 from "@/assets/lead-225206.png.asset.json";
+import makeCert from "@/assets/netzer-make-certificate.pdf.asset.json";
+import zapierCert from "@/assets/netzer-zapier-certificate.pdf.asset.json";
+
 
 const FEEDBACK_SHOTS = [
   { src: wfEmail.url, caption: "Email Feedback — Gmail watch to HTTP webhook" },
@@ -279,6 +282,26 @@ const SKILLS = [
 ];
 
 const CERTS = ["Zapier Certified Expert", "Make Advanced Certification"];
+
+const CERTIFICATES = [
+  {
+    title: "No Code Automation with Make.com",
+    issuer: "Tara AI Community+",
+    date: "August 23, 2026",
+    url: makeCert.url,
+    highlights:
+      "Make.com Interface, Scenario Structure, Filters, Triggers, Connecting Apps, Actions, Data Manipulation, Advanced Routing, HTTP Requests & AI Agents",
+  },
+  {
+    title: "No Code Automation with Zapier",
+    issuer: "Tara AI Community+",
+    date: "August 17, 2026",
+    url: zapierCert.url,
+    highlights:
+      "Zapier Interface, Triggers, Formatter, Delay, Filter, Paths, Looping, Sub Zaps, Webhooks & AI with Human-in-the-Loop",
+  },
+];
+
 
 const LINKS = {
   phone: "+639386946310",
@@ -787,7 +810,7 @@ function Experience() {
           <Reveal>
             <div className="h-full rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/40">
               <p className="section-label mb-4">Certifications</p>
-              <ul className="space-y-2.5">
+              <ul className="mb-5 space-y-2.5">
                 {CERTS.map((c) => (
                   <li key={c} className="flex items-center gap-3 text-sm">
                     <span className="text-primary">◆</span>
@@ -795,6 +818,39 @@ function Experience() {
                   </li>
                 ))}
               </ul>
+              <div className="space-y-3">
+                {CERTIFICATES.map((cert) => (
+                  <a
+                    key={cert.title}
+                    href={cert.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-ripple
+                    className="ripple-host group block rounded-xl border border-border bg-surface/60 p-4 transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-[0.99]"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="flex items-center gap-2 font-mono text-xs text-primary">
+                          <span>◆</span>
+                          {cert.date}
+                        </p>
+                        <p className="mt-1 truncate font-display text-sm font-semibold text-foreground">
+                          {cert.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {cert.issuer}
+                        </p>
+                      </div>
+                      <span className="shrink-0 rounded-full border border-border bg-card px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground transition-colors group-hover:border-primary/40 group-hover:text-foreground">
+                        PDF ↗
+                      </span>
+                    </div>
+                    <p className="mt-2 line-clamp-2 text-xs text-muted-foreground/80">
+                      {cert.highlights}
+                    </p>
+                  </a>
+                ))}
+              </div>
             </div>
           </Reveal>
           <Reveal delay={110}>
