@@ -3,7 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Moon, Sun, ArrowRight, Workflow } from "lucide-react";
 import heroFlow from "@/assets/hero-flow.jpg";
 import logoMark from "@/assets/logo-mark.png";
-import portraitAsset from "@/assets/netzer-portrait.png.asset.json";
+import portraitAsset from "@/assets/netzer-portrait.jpg.asset.json";
 import wfEmail from "@/assets/wf-110955.png.asset.json";
 import wfChat from "@/assets/wf-111033.png.asset.json";
 import wfSocial from "@/assets/wf-111109.png.asset.json";
