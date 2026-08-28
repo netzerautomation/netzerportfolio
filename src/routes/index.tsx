@@ -1,6 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { Moon, Sun, ArrowRight, Workflow } from "lucide-react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import { Moon, Sun, ArrowRight, Workflow, X } from "lucide-react";
+
 import heroFlow from "@/assets/hero-flow.jpg";
 import logoMark from "@/assets/logo-mark.png";
 import portraitAsset from "@/assets/netzer-portrait.jpg.asset.json";
@@ -39,6 +47,94 @@ const LEAD_SHOTS = [
   { src: lead7.url, caption: "Meeting scheduling — Calendly to Sheets" },
   { src: lead8.url, caption: "Lead assignment to sales reps" },
 ];
+
+/* ---------- lightbox ---------- */
+
+type LightboxState = { src: string; caption: string } | null;
+type LightboxCtx = (state: LightboxState) => void;
+
+const LightboxContext = createContext<LightboxCtx>(() => {});
+
+export function useLightbox() {
+  return useContext(LightboxContext);
+}
+
+function Lightbox({
+  state,
+  onClose,
+}: {
+  state: LightboxState;
+  onClose: () => void;
+}) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (state) {
+      setVisible(true);
+      document.body.style.overflow = "hidden";
+    } else {
+      setVisible(false);
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [state]);
+
+  useEffect(() => {
+    if (!state) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [state, onClose]);
+
+  if (!state) return null;
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={state.caption}
+      onClick={onClose}
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm transition-opacity duration-200 ${
+        visible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div
+        className="relative max-h-full max-w-5xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          aria-label="Close"
+          onClick={onClose}
+          className="absolute -top-3 -right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-foreground shadow-lg transition-transform hover:scale-110 active:scale-95"
+        >
+          <X className="h-4 w-4" />
+        </button>
+        <figure
+          className={`overflow-hidden rounded-xl border border-border bg-surface shadow-2xl transition-all duration-200 ${
+            visible ? "scale-100 opacity-100" : "scale-95 opacity-0"
+          }`}
+        >
+          <img
+            src={state.src}
+            alt={state.caption}
+            className="max-h-[82vh] w-auto max-w-full object-contain"
+          />
+          {state.caption && (
+            <figcaption className="border-t border-border/60 bg-surface-2 px-4 py-2 font-mono text-xs text-muted-foreground">
+              {state.caption}
+            </figcaption>
+          )}
+        </figure>
+      </div>
+    </div>
+  );
+}
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -313,20 +409,26 @@ function ThemeToggle() {
 function Index() {
   useRevealObserver();
   useRipple();
+  const [lightbox, setLightbox] = useState<LightboxState>(null);
+  const openLightbox = useCallback((s: LightboxState) => setLightbox(s), []);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <ScrollProgress />
-      <Nav />
-      <Hero />
-      <Marquee />
-      <Services />
-      <Workflows />
-      <Experience />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <LightboxContext.Provider value={openLightbox}>
+      <div className="min-h-screen bg-background text-foreground">
+        <ScrollProgress />
+        <Nav />
+        <Hero />
+        <Marquee />
+        <Services />
+        <Workflows />
+        <Experience />
+        <Projects />
+        <Contact />
+        <Footer />
+      </div>
+      <Lightbox state={lightbox} onClose={closeLightbox} />
+    </LightboxContext.Provider>
   );
 }
 
@@ -538,6 +640,7 @@ function Services() {
 }
 
 function Workflows() {
+  const openLightbox = useLightbox();
   return (
     <section
       id="workflows"
@@ -600,12 +703,13 @@ function Workflows() {
                       ? FEEDBACK_SHOTS
                       : LEAD_SHOTS
                     ).map((shot) => (
-                      <a
+                      <button
                         key={shot.src}
-                        href={shot.src}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group/shot block overflow-hidden rounded-lg border border-border bg-surface-2 transition-colors hover:border-primary/50 active:scale-[0.98]"
+                        type="button"
+                        onClick={() =>
+                          openLightbox({ src: shot.src, caption: shot.caption })
+                        }
+                        className="group/shot block w-full overflow-hidden rounded-lg border border-border bg-surface-2 text-left transition-colors hover:border-primary/50 active:scale-[0.98]"
                       >
                         <img
                           src={shot.src}
@@ -616,7 +720,7 @@ function Workflows() {
                         <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
                           {shot.caption}
                         </span>
-                      </a>
+                      </button>
                     ))}
                   </div>
                 )}
