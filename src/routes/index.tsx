@@ -283,6 +283,26 @@ const SKILLS = [
 
 const CERTS = ["Zapier Certified Expert", "Make Advanced Certification"];
 
+const CERTIFICATES = [
+  {
+    title: "No Code Automation with Make.com",
+    issuer: "Tara AI Community+",
+    date: "August 23, 2026",
+    url: makeCert.url,
+    highlights:
+      "Make.com Interface, Scenario Structure, Filters, Triggers, Connecting Apps, Actions, Data Manipulation, Advanced Routing, HTTP Requests & AI Agents",
+  },
+  {
+    title: "No Code Automation with Zapier",
+    issuer: "Tara AI Community+",
+    date: "August 17, 2026",
+    url: zapierCert.url,
+    highlights:
+      "Zapier Interface, Triggers, Formatter, Delay, Filter, Paths, Looping, Sub Zaps, Webhooks & AI with Human-in-the-Loop",
+  },
+];
+
+
 const LINKS = {
   phone: "+639386946310",
   email: "netzer.it@gmail.com",
