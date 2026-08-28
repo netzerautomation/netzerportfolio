@@ -27,6 +27,9 @@ import lead7 from "@/assets/lead-225158.png.asset.json";
 import lead8 from "@/assets/lead-225206.png.asset.json";
 import makeCert from "@/assets/netzer-make-certificate.pdf.asset.json";
 import zapierCert from "@/assets/netzer-zapier-certificate.pdf.asset.json";
+import certMakeImg from "@/assets/cert-make.png.asset.json";
+import certZapierImg from "@/assets/cert-zapier.png.asset.json";
+
 
 
 const FEEDBACK_SHOTS = [
