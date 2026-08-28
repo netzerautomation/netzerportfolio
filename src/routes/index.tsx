@@ -27,6 +27,9 @@ import lead7 from "@/assets/lead-225158.png.asset.json";
 import lead8 from "@/assets/lead-225206.png.asset.json";
 import makeCert from "@/assets/netzer-make-certificate.pdf.asset.json";
 import zapierCert from "@/assets/netzer-zapier-certificate.pdf.asset.json";
+import certMakeImg from "@/assets/cert-make.png.asset.json";
+import certZapierImg from "@/assets/cert-zapier.png.asset.json";
+
 
 
 const FEEDBACK_SHOTS = [
@@ -288,7 +291,7 @@ const CERTIFICATES = [
     title: "No Code Automation with Make.com",
     issuer: "Tara AI Community+",
     date: "August 23, 2026",
-    url: makeCert.url,
+    img: certMakeImg.url,
     highlights:
       "Make.com Interface, Scenario Structure, Filters, Triggers, Connecting Apps, Actions, Data Manipulation, Advanced Routing, HTTP Requests & AI Agents",
   },
@@ -296,11 +299,12 @@ const CERTIFICATES = [
     title: "No Code Automation with Zapier",
     issuer: "Tara AI Community+",
     date: "August 17, 2026",
-    url: zapierCert.url,
+    img: certZapierImg.url,
     highlights:
       "Zapier Interface, Triggers, Formatter, Delay, Filter, Paths, Looping, Sub Zaps, Webhooks & AI with Human-in-the-Loop",
   },
 ];
+
 
 
 const LINKS = {
