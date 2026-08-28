@@ -409,20 +409,26 @@ function ThemeToggle() {
 function Index() {
   useRevealObserver();
   useRipple();
+  const [lightbox, setLightbox] = useState<LightboxState>(null);
+  const openLightbox = useCallback((s: LightboxState) => setLightbox(s), []);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <ScrollProgress />
-      <Nav />
-      <Hero />
-      <Marquee />
-      <Services />
-      <Workflows />
-      <Experience />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <LightboxContext.Provider value={openLightbox}>
+      <div className="min-h-screen bg-background text-foreground">
+        <ScrollProgress />
+        <Nav />
+        <Hero />
+        <Marquee />
+        <Services />
+        <Workflows />
+        <Experience />
+        <Projects />
+        <Contact />
+        <Footer />
+      </div>
+      <Lightbox state={lightbox} onClose={closeLightbox} />
+    </LightboxContext.Provider>
   );
 }
 
