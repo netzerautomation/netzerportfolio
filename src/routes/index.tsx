@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { Moon, Sun, ArrowRight, Workflow, X } from "lucide-react";
-import { Moon, Sun, ArrowRight, Workflow } from "lucide-react";
+
 import heroFlow from "@/assets/hero-flow.jpg";
 import logoMark from "@/assets/logo-mark.png";
 import portraitAsset from "@/assets/netzer-portrait.jpg.asset.json";
