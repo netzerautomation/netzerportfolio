@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Moon, Sun, ArrowRight, Workflow, X } from "lucide-react";
+import { Moon, Sun, ArrowRight, Workflow, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 import heroFlow from "@/assets/hero-flow.jpg";
 import logoMark from "@/assets/logo-mark.png";
@@ -25,10 +25,12 @@ import lead5 from "@/assets/lead-224941.png.asset.json";
 import lead6 from "@/assets/lead-224954.png.asset.json";
 import lead7 from "@/assets/lead-225158.png.asset.json";
 import lead8 from "@/assets/lead-225206.png.asset.json";
+import fbAgent from "@/assets/wf-facebook-agent.png.asset.json";
 import makeCert from "@/assets/netzer-make-certificate.pdf.asset.json";
 import zapierCert from "@/assets/netzer-zapier-certificate.pdf.asset.json";
 import certMakeImg from "@/assets/cert-make.png.asset.json";
 import certZapierImg from "@/assets/cert-zapier.png.asset.json";
+
 
 
 
@@ -54,15 +56,30 @@ const LEAD_SHOTS = [
   { src: lead8.url, caption: "Lead assignment to sales reps" },
 ];
 
+const FB_SHOTS = [
+  {
+    src: fbAgent.url,
+    caption:
+      "AI Agent for Facebook — n8n webhook → Google Doc → Gemini AI Agent with memory → HTTP",
+  },
+];
+
+
 /* ---------- lightbox ---------- */
 
-type LightboxState = { src: string; caption: string } | null;
+type LightboxItem = { src: string; caption: string };
+type LightboxState = { items: LightboxItem[]; index: number } | null;
 type LightboxCtx = (state: LightboxState) => void;
 
 const LightboxContext = createContext<LightboxCtx>(() => {});
 
 export function useLightbox() {
   return useContext(LightboxContext);
+}
+
+/** Convenience helper: open a single image. */
+export function openSingle(open: LightboxCtx, item: LightboxItem) {
+  open({ items: [item], index: 0 });
 }
 
 function Lightbox({
@@ -73,6 +90,24 @@ function Lightbox({
   onClose: () => void;
 }) {
   const [visible, setVisible] = useState(false);
+
+  const items = state?.items ?? [];
+  const index = state?.index ?? 0;
+  const hasPrev = index > 0;
+  const hasNext = index < items.length - 1;
+  const current = items[index];
+
+  const go = useCallback(
+    (dir: -1 | 1) => {
+      // Lightbox navigation is handled by the parent via a controlled state.
+      // We dispatch a CustomEvent so the parent can update state without
+      // threading setters down.
+      window.dispatchEvent(
+        new CustomEvent("lightbox-nav", { detail: dir }),
+      );
+    },
+    [],
+  );
 
   useEffect(() => {
     if (state) {
@@ -91,23 +126,51 @@ function Lightbox({
     if (!state) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && hasPrev) go(-1);
+      if (e.key === "ArrowRight" && hasNext) go(1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [state, onClose]);
+  }, [state, onClose, hasPrev, hasNext, go]);
 
-  if (!state) return null;
+  if (!state || !current) return null;
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={state.caption}
+      aria-label={current.caption}
       onClick={onClose}
       className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm transition-opacity duration-200 ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
+      {hasPrev && (
+        <button
+          type="button"
+          aria-label="Previous image"
+          onClick={(e) => {
+            e.stopPropagation();
+            go(-1);
+          }}
+          className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95 sm:left-6"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+      )}
+      {hasNext && (
+        <button
+          type="button"
+          aria-label="Next image"
+          onClick={(e) => {
+            e.stopPropagation();
+            go(1);
+          }}
+          className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95 sm:right-6"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      )}
       <div
         className="relative max-h-full max-w-5xl"
         onClick={(e) => e.stopPropagation()}
@@ -121,21 +184,27 @@ function Lightbox({
           <X className="h-4 w-4" />
         </button>
         <figure
+          key={current.src}
           className={`overflow-hidden rounded-xl border border-border bg-surface shadow-2xl transition-all duration-200 ${
             visible ? "scale-100 opacity-100" : "scale-95 opacity-0"
           }`}
         >
           <img
-            src={state.src}
-            alt={state.caption}
+            src={current.src}
+            alt={current.caption}
             className="max-h-[82vh] w-auto max-w-full object-contain"
           />
-          {state.caption && (
+          {current.caption && (
             <figcaption className="border-t border-border/60 bg-surface-2 px-4 py-2 font-mono text-xs text-muted-foreground">
-              {state.caption}
+              {current.caption}
             </figcaption>
           )}
         </figure>
+        {items.length > 1 && (
+          <p className="mt-2 text-center font-mono text-xs text-muted-foreground">
+            {index + 1} / {items.length}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -236,6 +305,13 @@ const WORKFLOWS = [
     flow: ["Order Intake", "HTTP Requests", "Data Mapping", "Drive + Calendar"],
     tools: ["Make.com", "Google Drive", "Google Calendar", "JSON"],
     metric: "Manual invoice work eliminated",
+  },
+  {
+    name: "AI Agent for Facebook",
+    desc: "An n8n-powered AI agent that responds to Facebook messages via webhook, retrieves context from a Google Doc, reasons with Google Gemini (with memory), and replies through an HTTP request — enabling conversational, on-brand auto-replies at scale.",
+    flow: ["Webhook", "Google Doc", "AI Agent (Gemini + Memory)", "HTTP Reply"],
+    tools: ["n8n", "Google Gemini", "Google Docs", "Webhooks", "Simple Memory"],
+    metric: "Automated Facebook messaging replies",
   },
 ];
 
@@ -439,6 +515,21 @@ function Index() {
   const [lightbox, setLightbox] = useState<LightboxState>(null);
   const openLightbox = useCallback((s: LightboxState) => setLightbox(s), []);
   const closeLightbox = useCallback(() => setLightbox(null), []);
+
+  // Handle prev/next navigation dispatched from the Lightbox component.
+  useEffect(() => {
+    const onNav = (e: Event) => {
+      const dir = (e as CustomEvent<-1 | 1>).detail;
+      setLightbox((prev) => {
+        if (!prev) return prev;
+        const nextIndex = prev.index + dir;
+        if (nextIndex < 0 || nextIndex >= prev.items.length) return prev;
+        return { ...prev, index: nextIndex };
+      });
+    };
+    window.addEventListener("lightbox-nav", onNav);
+    return () => window.removeEventListener("lightbox-nav", onNav);
+  }, []);
 
   return (
     <LightboxContext.Provider value={openLightbox}>
@@ -723,34 +814,41 @@ function Workflows() {
                   ))}
                 </div>
 
-                {(w.name === "Feedback Intelligence Pipeline" ||
-                  w.name === "Lead Generation and Qualification Workflow") && (
-                  <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {(w.name === "Feedback Intelligence Pipeline"
+                {(() => {
+                  const shots =
+                    w.name === "Feedback Intelligence Pipeline"
                       ? FEEDBACK_SHOTS
-                      : LEAD_SHOTS
-                    ).map((shot) => (
-                      <button
-                        key={shot.src}
-                        type="button"
-                        onClick={() =>
-                          openLightbox({ src: shot.src, caption: shot.caption })
-                        }
-                        className="group/shot block w-full overflow-hidden rounded-lg border border-border bg-surface-2 text-left transition-colors hover:border-primary/50 active:scale-[0.98]"
-                      >
-                        <img
-                          src={shot.src}
-                          alt={shot.caption}
-                          loading="lazy"
-                          className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
-                        />
-                        <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
-                          {shot.caption}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                      : w.name === "Lead Generation and Qualification Workflow"
+                        ? LEAD_SHOTS
+                        : w.name === "AI Agent for Facebook"
+                          ? FB_SHOTS
+                          : null;
+                  if (!shots) return null;
+                  return (
+                    <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                      {shots.map((shot, idx) => (
+                        <button
+                          key={shot.src}
+                          type="button"
+                          onClick={() =>
+                            openLightbox({ items: shots, index: idx })
+                          }
+                          className="group/shot block w-full overflow-hidden rounded-lg border border-border bg-surface-2 text-left transition-colors hover:border-primary/50 active:scale-[0.98]"
+                        >
+                          <img
+                            src={shot.src}
+                            alt={shot.caption}
+                            loading="lazy"
+                            className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
+                          />
+                          <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
+                            {shot.caption}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  );
+                })()}
 
                 <p className="mt-5 flex items-center gap-2 border-t border-border/60 pt-4 text-xs text-muted-foreground">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
@@ -816,12 +914,18 @@ function Experience() {
             <div className="h-full rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/40">
               <p className="section-label mb-4">Certifications</p>
               <div className="grid gap-4 sm:grid-cols-2">
-                {CERTIFICATES.map((cert) => (
+                {CERTIFICATES.map((cert, idx) => (
                   <button
                     key={cert.title}
                     type="button"
                     onClick={() =>
-                      openLightbox({ src: cert.img, caption: cert.title })
+                      openLightbox({
+                        items: CERTIFICATES.map((c) => ({
+                          src: c.img,
+                          caption: `${c.title} — ${c.issuer} (${c.date})`,
+                        })),
+                        index: idx,
+                      })
                     }
 
                     className="group block overflow-hidden rounded-xl border border-border bg-surface/60 transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-[0.99]"
