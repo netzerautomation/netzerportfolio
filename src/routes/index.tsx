@@ -293,20 +293,6 @@ const WORKFLOWS = [
     metric: "Response time cut from hours to minutes",
   },
   {
-    name: "Email Triage & Auto-Drafting",
-    desc: "High-volume inbox triage that summarizes incoming mail, detects urgency and sentiment, applies priority labels, and drafts replies for review.",
-    flow: ["Gmail", "Zapier", "LLM Summary", "Priority Labels"],
-    tools: ["Zapier", "Google Gemini", "Gmail", "Sentiment Analysis"],
-    metric: "Inbox triaged automatically, daily",
-  },
-  {
-    name: "Order & Invoice Sync",
-    desc: "Bridges order intake with fulfillment: validates order data, generates invoices in Drive, updates tracking sheets, and schedules follow-ups.",
-    flow: ["Order Intake", "HTTP Requests", "Data Mapping", "Drive + Calendar"],
-    tools: ["Make.com", "Google Drive", "Google Calendar", "JSON"],
-    metric: "Manual invoice work eliminated",
-  },
-  {
     name: "AI Agent for Facebook",
     desc: "An n8n-powered AI agent that responds to Facebook messages via webhook, retrieves context from a Google Doc, reasons with Google Gemini (with memory), and replies through an HTTP request — enabling conversational, on-brand auto-replies at scale.",
     flow: ["Webhook", "Google Doc", "AI Agent (Gemini + Memory)", "HTTP Reply"],
