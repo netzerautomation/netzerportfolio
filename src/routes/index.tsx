@@ -766,6 +766,7 @@ function Workflows() {
 }
 
 function Experience() {
+  const openLightbox = useLightbox();
   return (
     <section id="experience">
       <div className="mx-auto max-w-6xl px-5 py-24">
