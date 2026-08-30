@@ -516,6 +516,21 @@ function Index() {
   const openLightbox = useCallback((s: LightboxState) => setLightbox(s), []);
   const closeLightbox = useCallback(() => setLightbox(null), []);
 
+  // Handle prev/next navigation dispatched from the Lightbox component.
+  useEffect(() => {
+    const onNav = (e: Event) => {
+      const dir = (e as CustomEvent<-1 | 1>).detail;
+      setLightbox((prev) => {
+        if (!prev) return prev;
+        const nextIndex = prev.index + dir;
+        if (nextIndex < 0 || nextIndex >= prev.items.length) return prev;
+        return { ...prev, index: nextIndex };
+      });
+    };
+    window.addEventListener("lightbox-nav", onNav);
+    return () => window.removeEventListener("lightbox-nav", onNav);
+  }, []);
+
   return (
     <LightboxContext.Provider value={openLightbox}>
       <div className="min-h-screen bg-background text-foreground">
