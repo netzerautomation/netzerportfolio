@@ -284,7 +284,7 @@ const SKILLS = [
   "Summarization",
 ];
 
-const CERTS = ["Zapier Certified Expert", "Make Advanced Certification"];
+
 
 const CERTIFICATES = [
   {
@@ -766,6 +766,7 @@ function Workflows() {
 }
 
 function Experience() {
+  const openLightbox = useLightbox();
   return (
     <section id="experience">
       <div className="mx-auto max-w-6xl px-5 py-24">
@@ -814,47 +815,27 @@ function Experience() {
           <Reveal>
             <div className="h-full rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/40">
               <p className="section-label mb-4">Certifications</p>
-              <ul className="mb-5 space-y-2.5">
-                {CERTS.map((c) => (
-                  <li key={c} className="flex items-center gap-3 text-sm">
-                    <span className="text-primary">◆</span>
-                    {c}
-                  </li>
-                ))}
-              </ul>
-              <div className="space-y-3">
+              <div className="grid gap-4 sm:grid-cols-2">
                 {CERTIFICATES.map((cert) => (
-                  <a
+                  <button
                     key={cert.title}
-                    href={cert.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-ripple
-                    className="ripple-host group block rounded-xl border border-border bg-surface/60 p-4 transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-[0.99]"
+                    type="button"
+                    onClick={() =>
+                      openLightbox({ src: cert.img, caption: cert.title })
+                    }
+
+                    className="group block overflow-hidden rounded-xl border border-border bg-surface/60 transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-[0.99]"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="flex items-center gap-2 font-mono text-xs text-primary">
-                          <span>◆</span>
-                          {cert.date}
-                        </p>
-                        <p className="mt-1 truncate font-display text-sm font-semibold text-foreground">
-                          {cert.title}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {cert.issuer}
-                        </p>
-                      </div>
-                      <span className="shrink-0 rounded-full border border-border bg-card px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground transition-colors group-hover:border-primary/40 group-hover:text-foreground">
-                        PDF ↗
-                      </span>
-                    </div>
-                    <p className="mt-2 line-clamp-2 text-xs text-muted-foreground/80">
-                      {cert.highlights}
-                    </p>
-                  </a>
+                    <img
+                      src={cert.img}
+                      alt={cert.title}
+                      loading="lazy"
+                      className="w-full transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </button>
                 ))}
               </div>
+
             </div>
           </Reveal>
           <Reveal delay={110}>
