@@ -248,6 +248,13 @@ const WORKFLOWS = [
     tools: ["Make.com", "Google Drive", "Google Calendar", "JSON"],
     metric: "Manual invoice work eliminated",
   },
+  {
+    name: "AI Agent for Facebook",
+    desc: "An n8n-powered AI agent that responds to Facebook messages via webhook, retrieves context from a Google Doc, reasons with Google Gemini (with memory), and replies through an HTTP request — enabling conversational, on-brand auto-replies at scale.",
+    flow: ["Webhook", "Google Doc", "AI Agent (Gemini + Memory)", "HTTP Reply"],
+    tools: ["n8n", "Google Gemini", "Google Docs", "Webhooks", "Simple Memory"],
+    metric: "Automated Facebook messaging replies",
+  },
 ];
 
 const EXPERIENCE = [
