@@ -67,13 +67,19 @@ const FB_SHOTS = [
 
 /* ---------- lightbox ---------- */
 
-type LightboxState = { src: string; caption: string } | null;
+type LightboxItem = { src: string; caption: string };
+type LightboxState = { items: LightboxItem[]; index: number } | null;
 type LightboxCtx = (state: LightboxState) => void;
 
 const LightboxContext = createContext<LightboxCtx>(() => {});
 
 export function useLightbox() {
   return useContext(LightboxContext);
+}
+
+/** Convenience helper: open a single image. */
+export function openSingle(open: LightboxCtx, item: LightboxItem) {
+  open({ items: [item], index: 0 });
 }
 
 function Lightbox({
@@ -84,6 +90,24 @@ function Lightbox({
   onClose: () => void;
 }) {
   const [visible, setVisible] = useState(false);
+
+  const items = state?.items ?? [];
+  const index = state?.index ?? 0;
+  const hasPrev = index > 0;
+  const hasNext = index < items.length - 1;
+  const current = items[index];
+
+  const go = useCallback(
+    (dir: -1 | 1) => {
+      // Lightbox navigation is handled by the parent via a controlled state.
+      // We dispatch a CustomEvent so the parent can update state without
+      // threading setters down.
+      window.dispatchEvent(
+        new CustomEvent("lightbox-nav", { detail: dir }),
+      );
+    },
+    [],
+  );
 
   useEffect(() => {
     if (state) {
@@ -102,23 +126,51 @@ function Lightbox({
     if (!state) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && hasPrev) go(-1);
+      if (e.key === "ArrowRight" && hasNext) go(1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [state, onClose]);
+  }, [state, onClose, hasPrev, hasNext, go]);
 
-  if (!state) return null;
+  if (!state || !current) return null;
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={state.caption}
+      aria-label={current.caption}
       onClick={onClose}
       className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm transition-opacity duration-200 ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
+      {hasPrev && (
+        <button
+          type="button"
+          aria-label="Previous image"
+          onClick={(e) => {
+            e.stopPropagation();
+            go(-1);
+          }}
+          className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95 sm:left-6"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+      )}
+      {hasNext && (
+        <button
+          type="button"
+          aria-label="Next image"
+          onClick={(e) => {
+            e.stopPropagation();
+            go(1);
+          }}
+          className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95 sm:right-6"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      )}
       <div
         className="relative max-h-full max-w-5xl"
         onClick={(e) => e.stopPropagation()}
@@ -132,21 +184,27 @@ function Lightbox({
           <X className="h-4 w-4" />
         </button>
         <figure
+          key={current.src}
           className={`overflow-hidden rounded-xl border border-border bg-surface shadow-2xl transition-all duration-200 ${
             visible ? "scale-100 opacity-100" : "scale-95 opacity-0"
           }`}
         >
           <img
-            src={state.src}
-            alt={state.caption}
+            src={current.src}
+            alt={current.caption}
             className="max-h-[82vh] w-auto max-w-full object-contain"
           />
-          {state.caption && (
+          {current.caption && (
             <figcaption className="border-t border-border/60 bg-surface-2 px-4 py-2 font-mono text-xs text-muted-foreground">
-              {state.caption}
+              {current.caption}
             </figcaption>
           )}
         </figure>
+        {items.length > 1 && (
+          <p className="mt-2 text-center font-mono text-xs text-muted-foreground">
+            {index + 1} / {items.length}
+          </p>
+        )}
       </div>
     </div>
   );
