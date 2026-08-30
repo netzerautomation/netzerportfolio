@@ -56,6 +56,15 @@ const LEAD_SHOTS = [
   { src: lead8.url, caption: "Lead assignment to sales reps" },
 ];
 
+const FB_SHOTS = [
+  {
+    src: fbAgent.url,
+    caption:
+      "AI Agent for Facebook — n8n webhook → Google Doc → Gemini AI Agent with memory → HTTP",
+  },
+];
+
+
 /* ---------- lightbox ---------- */
 
 type LightboxState = { src: string; caption: string } | null;
