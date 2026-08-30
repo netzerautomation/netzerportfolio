@@ -284,7 +284,7 @@ const SKILLS = [
   "Summarization",
 ];
 
-const CERTS = ["Zapier Certified Expert", "Make Advanced Certification"];
+
 
 const CERTIFICATES = [
   {
