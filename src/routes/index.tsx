@@ -814,34 +814,41 @@ function Workflows() {
                   ))}
                 </div>
 
-                {(w.name === "Feedback Intelligence Pipeline" ||
-                  w.name === "Lead Generation and Qualification Workflow") && (
-                  <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {(w.name === "Feedback Intelligence Pipeline"
+                {(() => {
+                  const shots =
+                    w.name === "Feedback Intelligence Pipeline"
                       ? FEEDBACK_SHOTS
-                      : LEAD_SHOTS
-                    ).map((shot) => (
-                      <button
-                        key={shot.src}
-                        type="button"
-                        onClick={() =>
-                          openLightbox({ src: shot.src, caption: shot.caption })
-                        }
-                        className="group/shot block w-full overflow-hidden rounded-lg border border-border bg-surface-2 text-left transition-colors hover:border-primary/50 active:scale-[0.98]"
-                      >
-                        <img
-                          src={shot.src}
-                          alt={shot.caption}
-                          loading="lazy"
-                          className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
-                        />
-                        <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
-                          {shot.caption}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                      : w.name === "Lead Generation and Qualification Workflow"
+                        ? LEAD_SHOTS
+                        : w.name === "AI Agent for Facebook"
+                          ? FB_SHOTS
+                          : null;
+                  if (!shots) return null;
+                  return (
+                    <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                      {shots.map((shot, idx) => (
+                        <button
+                          key={shot.src}
+                          type="button"
+                          onClick={() =>
+                            openLightbox({ items: shots, index: idx })
+                          }
+                          className="group/shot block w-full overflow-hidden rounded-lg border border-border bg-surface-2 text-left transition-colors hover:border-primary/50 active:scale-[0.98]"
+                        >
+                          <img
+                            src={shot.src}
+                            alt={shot.caption}
+                            loading="lazy"
+                            className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
+                          />
+                          <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
+                            {shot.caption}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  );
+                })()}
 
                 <p className="mt-5 flex items-center gap-2 border-t border-border/60 pt-4 text-xs text-muted-foreground">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
