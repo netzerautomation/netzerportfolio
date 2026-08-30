@@ -153,7 +153,7 @@ function Lightbox({
             e.stopPropagation();
             go(-1);
           }}
-          className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95 sm:left-6"
+          className="animate-fade-in absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground active:scale-90 sm:left-6"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
@@ -166,7 +166,7 @@ function Lightbox({
             e.stopPropagation();
             go(1);
           }}
-          className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-transform hover:scale-110 active:scale-95 sm:right-6"
+          className="animate-fade-in absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface/90 text-foreground shadow-lg backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground active:scale-90 sm:right-6"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
