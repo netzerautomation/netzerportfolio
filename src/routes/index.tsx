@@ -914,12 +914,18 @@ function Experience() {
             <div className="h-full rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/40">
               <p className="section-label mb-4">Certifications</p>
               <div className="grid gap-4 sm:grid-cols-2">
-                {CERTIFICATES.map((cert) => (
+                {CERTIFICATES.map((cert, idx) => (
                   <button
                     key={cert.title}
                     type="button"
                     onClick={() =>
-                      openLightbox({ src: cert.img, caption: cert.title })
+                      openLightbox({
+                        items: CERTIFICATES.map((c) => ({
+                          src: c.img,
+                          caption: `${c.title} — ${c.issuer} (${c.date})`,
+                        })),
+                        index: idx,
+                      })
                     }
 
                     className="group block overflow-hidden rounded-xl border border-border bg-surface/60 transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-[0.99]"
