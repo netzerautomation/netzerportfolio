@@ -819,7 +819,10 @@ function Experience() {
                   <button
                     key={cert.title}
                     type="button"
-                    onClick={() => openLightbox(cert.img, cert.title)}
+                    onClick={() =>
+                      openLightbox({ src: cert.img, caption: cert.title })
+                    }
+
                     className="group block overflow-hidden rounded-xl border border-border bg-surface/60 transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-[0.99]"
                   >
                     <img
