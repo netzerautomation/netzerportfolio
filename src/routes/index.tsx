@@ -1103,6 +1103,21 @@ function Contact() {
         <Reveal delay={220}>
           <a
             href={`mailto:${LINKS.email}?subject=${encodeURIComponent("Let's work together — Project inquiry")}&body=${encodeURIComponent("Hi Netzer,\n\nI'd like to discuss a workflow automation project with you.\n\n")}`}
+            onClick={(e) => {
+              const isDesktop =
+                typeof window !== "undefined" &&
+                window.matchMedia("(pointer: fine) and (min-width: 768px)").matches;
+              if (isDesktop) {
+                e.preventDefault();
+                const subject = encodeURIComponent("Let's work together — Project inquiry");
+                const body = encodeURIComponent("Hi Netzer,\n\nI'd like to discuss a workflow automation project with you.\n\n");
+                window.open(
+                  `https://mail.google.com/mail/?view=cm&fs=1&to=${LINKS.email}&su=${subject}&body=${body}`,
+                  "_blank",
+                  "noopener,noreferrer",
+                );
+              }
+            }}
             data-ripple
             className="ripple-host mt-8 inline-block rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-transform hover:scale-105 active:scale-95"
           >
