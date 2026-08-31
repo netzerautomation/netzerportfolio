@@ -1102,7 +1102,7 @@ function Contact() {
 
         <Reveal delay={220}>
           <a
-            href={`mailto:${LINKS.email}`}
+            href={`mailto:${LINKS.email}?subject=${encodeURIComponent("Let's work together — Project inquiry")}&body=${encodeURIComponent("Hi Netzer,\n\nI'd like to discuss a workflow automation project with you.\n\n")}`}
             data-ripple
             className="ripple-host mt-8 inline-block rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-transform hover:scale-105 active:scale-95"
           >
