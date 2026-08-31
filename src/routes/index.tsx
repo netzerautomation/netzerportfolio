@@ -90,6 +90,9 @@ function Lightbox({
   onClose: () => void;
 }) {
   const [visible, setVisible] = useState(false);
+  // Direction of the most recent navigation: 1 = next (slide from right),
+  // -1 = prev (slide from left). Null = initial open (no slide).
+  const [direction, setDirection] = useState<1 | -1 | null>(null);
 
   const items = state?.items ?? [];
   const index = state?.index ?? 0;
@@ -97,18 +100,12 @@ function Lightbox({
   const hasNext = index < items.length - 1;
   const current = items[index];
 
-  const go = useCallback(
-    (dir: -1 | 1) => {
-      // Lightbox navigation is handled by the parent via a controlled state.
-      // We dispatch a CustomEvent so the parent can update state without
-      // threading setters down.
-      window.dispatchEvent(
-        new CustomEvent("lightbox-nav", { detail: dir }),
-      );
-    },
-    [],
-  );
+  const go = useCallback((dir: -1 | 1) => {
+    setDirection(dir);
+    window.dispatchEvent(new CustomEvent("lightbox-nav", { detail: dir }));
+  }, []);
 
+  // Reset direction when a brand-new lightbox session opens.
   useEffect(() => {
     if (state) {
       setVisible(true);
@@ -134,6 +131,13 @@ function Lightbox({
   }, [state, onClose, hasPrev, hasNext, go]);
 
   if (!state || !current) return null;
+
+  const slideClass =
+    direction === 1
+      ? "lb-slide-next"
+      : direction === -1
+        ? "lb-slide-prev"
+        : "";
 
   return (
     <div
@@ -184,10 +188,10 @@ function Lightbox({
           <X className="h-4 w-4" />
         </button>
         <figure
-          key={current.src}
-          className={`overflow-hidden rounded-xl border border-border bg-surface shadow-2xl transition-all duration-200 ${
+          key={`${current.src}-${index}`}
+          className={`lb-figure overflow-hidden rounded-xl border border-border bg-surface shadow-2xl transition-all duration-200 ${
             visible ? "scale-100 opacity-100" : "scale-95 opacity-0"
-          }`}
+          } ${slideClass}`}
         >
           <img
             src={current.src}
