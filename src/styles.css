@@ -204,6 +204,44 @@ html.light {
     }
   }
 
+  /* Lightbox image navigation transitions */
+  .lb-figure {
+    animation-fill-mode: both;
+    will-change: opacity, transform;
+  }
+  .lb-slide-next {
+    animation: lb-in-right 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .lb-slide-prev {
+    animation: lb-in-left 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes lb-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(48px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+  @keyframes lb-in-left {
+    0% {
+      opacity: 0;
+      transform: translateX(-48px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lb-slide-next,
+    .lb-slide-prev {
+      animation: none;
+    }
+  }
+
   /* Click ripple */
   .ripple-host {
     position: relative;
