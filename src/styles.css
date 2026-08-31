@@ -210,10 +210,10 @@ html.light {
     will-change: opacity, transform;
   }
   .lb-slide-next {
-    animation: lb-in-right 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: lb-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .lb-slide-prev {
-    animation: lb-in-left 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: lb-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
   @keyframes lb-in-right {
     0% {
