@@ -26,6 +26,10 @@ import lead6 from "@/assets/lead-224954.png.asset.json";
 import lead7 from "@/assets/lead-225158.png.asset.json";
 import lead8 from "@/assets/lead-225206.png.asset.json";
 import fbAgent from "@/assets/wf-facebook-agent.png.asset.json";
+import hr1 from "@/assets/hr-202035.png.asset.json";
+import hr2 from "@/assets/hr-202055.png.asset.json";
+import hr3 from "@/assets/hr-202105.png.asset.json";
+import hr4 from "@/assets/hr-202125.png.asset.json";
 import makeCert from "@/assets/netzer-make-certificate.pdf.asset.json";
 import zapierCert from "@/assets/netzer-zapier-certificate.pdf.asset.json";
 import certMakeImg from "@/assets/cert-make.png.asset.json";
@@ -62,6 +66,13 @@ const FB_SHOTS = [
     caption:
       "AI Agent for Facebook — n8n webhook → Google Doc → Gemini AI Agent with memory → HTTP",
   },
+];
+
+const HR_SHOTS = [
+  { src: hr1.url, caption: "Application intake → Airtable → CV extraction → AI analysis → qualified / not qualified" },
+  { src: hr2.url, caption: "Questionnaire, personalized email, meeting booking & phone screening" },
+  { src: hr3.url, caption: "Gmail message, Google Calendar booking & screening questions update" },
+  { src: hr4.url, caption: "Full HR evaluation & job posting assistant workflow overview" },
 ];
 
 
@@ -303,6 +314,13 @@ const WORKFLOWS = [
     tools: ["n8n", "Google Gemini", "Google Docs", "Webhooks", "Simple Memory"],
     metric: "Automated Facebook messaging replies",
   },
+  {
+    name: "HR Evaluation & Job Posting Assistant with AI",
+    desc: "End-to-end recruitment assistant in n8n: applications and CVs are captured, stored in Airtable, parsed from PDF, and analyzed by an AI agent that qualifies candidates, generates tailored questionnaires and personalized emails, books interviews on Google Calendar, and prepares phone-screening questions.",
+    flow: ["Job Application Form", "Airtable + CV Extract", "AI Screening", "Interview Booking"],
+    tools: ["n8n", "Groq", "Airtable", "Google Drive", "Google Calendar", "Gmail"],
+    metric: "Screening to interview booking, fully automated",
+  },
 ];
 
 const EXPERIENCE = [
@@ -319,7 +337,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    role: "Education — BSc Information Technology",
+    role: "Education — BS Information Technology",
     org: "Mindanao Polytechnic College",
     period: "2015 – 2019",
     points: [
@@ -812,7 +830,9 @@ function Workflows() {
                         ? LEAD_SHOTS
                         : w.name === "AI Agent for Facebook"
                           ? FB_SHOTS
-                          : null;
+                          : w.name === "HR Evaluation & Job Posting Assistant with AI"
+                            ? HR_SHOTS
+                            : null;
                   if (!shots) return null;
                   return (
                     <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
