@@ -68,6 +68,13 @@ const FB_SHOTS = [
   },
 ];
 
+const HR_SHOTS = [
+  { src: hr1.url, caption: "Application intake → Airtable → CV extraction → AI analysis → qualified / not qualified" },
+  { src: hr2.url, caption: "Questionnaire, personalized email, meeting booking & phone screening" },
+  { src: hr3.url, caption: "Gmail message, Google Calendar booking & screening questions update" },
+  { src: hr4.url, caption: "Full HR evaluation & job posting assistant workflow overview" },
+];
+
 
 /* ---------- lightbox ---------- */
 
