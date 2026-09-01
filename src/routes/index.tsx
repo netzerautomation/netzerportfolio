@@ -337,7 +337,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    role: "Education — BSc Information Technology",
+    role: "Education — BS Information Technology",
     org: "Mindanao Polytechnic College",
     period: "2015 – 2019",
     points: [
@@ -830,7 +830,9 @@ function Workflows() {
                         ? LEAD_SHOTS
                         : w.name === "AI Agent for Facebook"
                           ? FB_SHOTS
-                          : null;
+                          : w.name === "HR Evaluation & Job Posting Assistant with AI"
+                            ? HR_SHOTS
+                            : null;
                   if (!shots) return null;
                   return (
                     <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
