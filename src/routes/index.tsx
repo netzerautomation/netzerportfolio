@@ -403,8 +403,6 @@ const CERTIFICATES = [
 const LINKS = {
   phone: "+639386946310",
   email: "netzer.it@gmail.com",
-  onlinejobs: "https://www.onlinejobs.ph/jobseekers/info/2695411",
-  upwork: "https://www.upwork.com/freelancers/~01f45cc516bc831fdd",
 };
 
 /* ---------- effects ---------- */
@@ -1107,24 +1105,6 @@ function Contact() {
             >
               <span className="text-primary">☎</span>
               <span className="truncate text-sm">{LINKS.phone}</span>
-            </a>
-            <a
-              href={LINKS.upwork}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-95"
-            >
-              <span className="text-primary">↗</span>
-              <span className="truncate text-sm">Upwork profile</span>
-            </a>
-            <a
-              href={LINKS.onlinejobs}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-primary/40 active:scale-95"
-            >
-              <span className="text-primary">↗</span>
-              <span className="truncate text-sm">OnlineJobs.ph</span>
             </a>
           </div>
         </Reveal>
