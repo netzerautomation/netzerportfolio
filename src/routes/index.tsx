@@ -314,6 +314,13 @@ const WORKFLOWS = [
     tools: ["n8n", "Google Gemini", "Google Docs", "Webhooks", "Simple Memory"],
     metric: "Automated Facebook messaging replies",
   },
+  {
+    name: "HR Evaluation & Job Posting Assistant with AI",
+    desc: "End-to-end recruitment assistant in n8n: applications and CVs are captured, stored in Airtable, parsed from PDF, and analyzed by an AI agent that qualifies candidates, generates tailored questionnaires and personalized emails, books interviews on Google Calendar, and prepares phone-screening questions.",
+    flow: ["Job Application Form", "Airtable + CV Extract", "AI Screening", "Interview Booking"],
+    tools: ["n8n", "Groq", "Airtable", "Google Drive", "Google Calendar", "Gmail"],
+    metric: "Screening to interview booking, fully automated",
+  },
 ];
 
 const EXPERIENCE = [
