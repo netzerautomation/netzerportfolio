@@ -403,8 +403,6 @@ const CERTIFICATES = [
 const LINKS = {
   phone: "+639386946310",
   email: "netzer.it@gmail.com",
-  onlinejobs: "https://www.onlinejobs.ph/jobseekers/info/2695411",
-  upwork: "https://www.upwork.com/freelancers/~01f45cc516bc831fdd",
 };
 
 /* ---------- effects ---------- */
