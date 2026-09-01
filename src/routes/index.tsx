@@ -34,6 +34,7 @@ import makeCert from "@/assets/netzer-make-certificate.pdf.asset.json";
 import zapierCert from "@/assets/netzer-zapier-certificate.pdf.asset.json";
 import certMakeImg from "@/assets/cert-make.png.asset.json";
 import certZapierImg from "@/assets/cert-zapier.png.asset.json";
+import certN8nImg from "@/assets/cert-n8n.png.asset.json";
 
 
 
@@ -386,6 +387,14 @@ const CERTIFICATES = [
     img: certZapierImg.url,
     highlights:
       "Zapier Interface, Triggers, Formatter, Delay, Filter, Paths, Looping, Sub Zaps, Webhooks & AI with Human-in-the-Loop",
+  },
+  {
+    title: "AI Automation with n8n",
+    issuer: "Technical Virtual Assistants PH",
+    date: "September 1, 2026",
+    img: certN8nImg.url,
+    highlights:
+      "AI Agents vs AI Workflows, Set Up n8n Server, User Interface, Understanding Workflows and Nodes, Creating First Workflow, Working with Data, Popular Triggers & Actions, Filtering/Branching, Looping/Merging, Connecting to APIs, MCP Server/Clients and AI Agents",
   },
 ];
 
