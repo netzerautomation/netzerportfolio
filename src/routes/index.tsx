@@ -979,6 +979,7 @@ function Experience() {
 }
 
 function Projects() {
+  const openLightbox = useLightbox();
   return (
     <section
       id="projects"
@@ -995,23 +996,25 @@ function Projects() {
           <div className="overflow-hidden rounded-3xl border border-border bg-card">
             <div className="grid md:grid-cols-[1.3fr_1fr]">
               <div className="p-8 sm:p-10">
-                <p className="section-label mb-4">Feedback Intelligence System</p>
+                <p className="section-label mb-4">HR Automation System</p>
                 <h3 className="font-display text-2xl font-bold leading-tight">
-                  AI-powered customer feedback collection & analysis pipeline
+                  HR Evaluation & Job Posting Assistant with AI
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  Built a personal AI-powered automation workflow that collects
-                  customer feedback from multiple sources and analyzes it using
-                  AI. The system automatically categorizes feedback by type,
-                  topic, sentiment, urgency, and summary — then organizes the
-                  results for trend analysis and monthly reporting.
+                  An end-to-end recruitment assistant built in n8n. It captures
+                  job applications and CVs, stores them in Airtable, extracts
+                  text from PDFs, and runs AI screening that qualifies
+                  candidates, generates tailored questionnaires and personalized
+                  emails, books interviews on Google Calendar, and prepares
+                  phone-screening questions — taking a candidate from
+                  application to interview booking without manual handoffs.
                 </p>
                 <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
                   {[
-                    ["Sources", "Multi-channel ingest"],
-                    ["Analysis", "AI categorization"],
-                    ["Outputs", "Trends + reports"],
-                    ["Reporting", "Monthly cadence"],
+                    ["Intake", "Applications + CV capture"],
+                    ["Storage", "Airtable + CV extract"],
+                    ["Screening", "AI qualification"],
+                    ["Booking", "Calendar + email"],
                   ].map(([k, v]) => (
                     <div
                       key={k}
@@ -1029,26 +1032,16 @@ function Projects() {
                 <p className="section-label mb-4">Stack</p>
                 <div className="flex flex-wrap gap-1.5">
                   {[
-                    "Make.com",
                     "n8n",
-                    "Zapier",
-                    "ChatGPT",
-                    "Google Gemini",
-                    "REST APIs",
-                    "Webhooks",
-                    "HTTP Requests",
-                    "Google Sheets",
-                    "JSON",
-                    "Data Mapping",
-                    "Gmail",
+                    "Groq",
+                    "Airtable",
                     "Google Drive",
-                    "Google Forms",
                     "Google Calendar",
+                    "Gmail",
+                    "AI Agents",
+                    "CV Extraction",
                     "Prompt Engineering",
-                    "Data Extraction",
-                    "Classification",
-                    "Sentiment Analysis",
-                    "Summarization",
+                    "Webhooks",
                   ].map((t) => (
                     <span
                       key={t}
@@ -1058,6 +1051,32 @@ function Projects() {
                     </span>
                   ))}
                 </div>
+              </div>
+            </div>
+
+            <div className="border-t border-border p-8 sm:p-10">
+              <p className="section-label mb-4">Workflow screenshots</p>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {HR_SHOTS.map((shot, idx) => (
+                  <button
+                    key={shot.src}
+                    type="button"
+                    onClick={() =>
+                      openLightbox({ items: HR_SHOTS, index: idx })
+                    }
+                    className="group/shot block w-full overflow-hidden rounded-lg border border-border bg-surface-2 text-left transition-colors hover:border-primary/50 active:scale-[0.98]"
+                  >
+                    <img
+                      src={shot.src}
+                      alt={shot.caption}
+                      loading="lazy"
+                      className="h-24 w-full object-cover object-left-top transition-transform duration-500 group-hover/shot:scale-105"
+                    />
+                    <span className="block px-2 py-1.5 font-mono text-[0.6rem] leading-tight text-muted-foreground">
+                      {shot.caption}
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
