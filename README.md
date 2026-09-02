@@ -1,7 +1,4 @@
 # Netzer's Automation Hub
-
-![image alt](https://github.com/netzerautomation/netzerportfolio/blob/f210f73e2aed74cbde594fb771986ede718b1b92/public/images/netzer-portrait.jpeg)
-
 Create me a portfolio website. Add sections for services, work experience, previous projects,  and  contact. Make my name as a logo.
 
 Here is the content of my resume:
